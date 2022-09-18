@@ -12,7 +12,7 @@
 
 
 <script setup>
-  // import {useQuasar} from 'quasar';
+  import {useQuasar} from 'quasar';
   import AuthForm from 'components/AuthForm';
   import {ref} from 'vue';
 
@@ -21,47 +21,48 @@
 
 
 
-  // const $q = useQuasar();
+  const $q = useQuasar();
 
-  const form = ref(new models.api.Users());
+  const form = ref({});
   const router = useRouter();
 
 
   async function onSubmit({accept, email, password}) {
     try {
       if (accept !== true) {
-        // $q.notify({
-        //   color: 'red-5',
-        //   textColor: 'white',
-        //   icon: 'warning',
-        //   message: 'You need to accept the license and terms first',
-        // });{
+        $q.notify({
+          color: 'red-5',
+          textColor: 'white',
+          icon: 'warning',
+          message: 'You need to accept the license and terms first',
+        });
       } else {
 
         console.log({email, password});
-        const res = await form.value.create();
+        const toSave =  new models.api.Users({email, password,accept});
+        const res = await toSave.create();
         console.log({
           res,
         });
         form.value.onReset();
         await router.push('/login');
-        // $q.notify({
-        //   color: 'green-4',
-        //   textColor: 'white',
-        //   icon: 'cloud_done',
-        //   message: 'Submitted',
-        // });
+        $q.notify({
+          color: 'green-4',
+          textColor: 'white',
+          icon: 'cloud_done',
+          message: 'Submitted',
+        });
 
       }
     } catch (e) {
       console.log({e});
       form.value.onReset();
-      // $q.notify({
-      //   color: 'red-5',
-      //   textColor: 'white',
-      //   icon: 'warning',
-      //   message: 'You need to accept the license and terms first',
-      // });
+      $q.notify({
+        color: 'red-5',
+        textColor: 'white',
+        icon: 'warning',
+        message: 'You need to accept the license and terms first',
+      });
     }
 
   }

@@ -13,13 +13,13 @@
 
 
 <script setup>
-  // import {useQuasar} from 'quasar';
+  import {useQuasar} from 'quasar';
   import AuthForm from 'components/AuthForm';
   import {ref} from 'vue';
   import {useRouter} from 'vue-router';
   import {useAuth} from 'stores/auth';
 
-  // const $q = useQuasar();
+  const $q = useQuasar();
 
   const form = ref(null);
   const router = useRouter();
@@ -38,23 +38,23 @@
       });
       form.value.onReset();
       await router.push('/admin');
-      // $q.notify({
-      //   color: 'green-4',
-      //   textColor: 'white',
-      //   icon: 'cloud_done',
-      //   message: 'Submitted',
-      // });
+      $q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'cloud_done',
+        message: 'Submitted',
+      });
 
 
     } catch (e) {
       console.log({e});
       form.value.onReset();
-      // $q.notify({
-      //   color: 'red-5',
-      //   textColor: 'white',
-      //   icon: 'warning',
-      //   message: 'You need to accept the license and terms first',
-      // });
+      $q.notify({
+        color: 'red-5',
+        textColor: 'white',
+        icon: 'warning',
+        message: 'You need to accept the license and terms first',
+      });
     }
 
   }
